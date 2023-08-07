@@ -37,15 +37,20 @@ function Board({ xIsNext, squares, onPlay }) {
     const nextSquares = squares.slice();
     if (xIsNext) {
       nextSquares[i] = 'X';
-      let index = calculateMove(nextSquares, 3, 'O');
-      if (index !== null) {
-        nextSquares[index] = 'O';
-      }
     } else {
       nextSquares[i] = 'O';
-      let index = calculateMove(nextSquares, 3, 'X');
-      if (index !== null) {
-        nextSquares[index] = 'X';
+    }
+    if (!calculateWinner(nextSquares)) {
+      if (xIsNext) {
+        let index = calculateMove(nextSquares, 3, 'O');
+        if (index !== null) {
+          nextSquares[index] = 'O';
+        }
+      } else {
+        let index = calculateMove(nextSquares, 3, 'X');
+        if (index !== null) {
+          nextSquares[index] = 'X';
+        }
       }
     }
     onPlay(nextSquares);
